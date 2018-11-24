@@ -106,7 +106,7 @@ public class AIMedium extends AI {
                 // kiểm tra bị phá chưa
                 if ( matrix [Ygach][Xgach] < 0 ){
                     // chưa phá thì cho nó pha ròi
-                    System.out.println("Sout AI medium da doi thanh cong :  x = " + Xgach + " y = "+ Ygach + " dinh thu " + matrix [Ygach][Xgach]);
+                    //System.out.println("Sout AI medium da doi thanh cong :  x = " + Xgach + " y = "+ Ygach + " dinh thu " + matrix [Ygach][Xgach]);
                     matrix [Ygach][Xgach] =  matrix [Ygach][Xgach]*(-1);
                     
                 }

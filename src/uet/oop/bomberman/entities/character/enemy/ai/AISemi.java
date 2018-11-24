@@ -1,3 +1,8 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package uet.oop.bomberman.entities.character.enemy.ai;
 
 import java.util.ArrayList;
@@ -5,20 +10,44 @@ import uet.oop.bomberman.Board;
 import uet.oop.bomberman.Game;
 import uet.oop.bomberman.entities.character.Bomber;
 import uet.oop.bomberman.entities.character.enemy.Enemy;
-import java.lang.Integer;
-import uet.oop.bomberman.entities.tile.destroyable.Brick;
 
-
-public class AILow extends AI {
+/**  tim den bomber bang khoang cách , chưa thông minh có khả năng tránh bom
+ *
+ * @author DoQuangTrung
+ */
+public class AISemi extends AI {
         Bomber _bomber;
 	Enemy _e;
         Board _board;
         int radius = Game.getBombRadius();
-        public AILow (Bomber bomber, Enemy e , Board board){
-            _bomber = bomber;
-            _e = e;
-            _board = board;
-        }
+
+    public AISemi(Bomber _bomber, Enemy _e, Board _board) {
+        this._bomber = _bomber;
+        this._e = _e;
+        this._board = _board;
+    }
+        /**
+         * tính toán tọa độ bomber so với con eneamy
+         * @return hướn đi 
+         */
+        
+        public int calculateColDirection() {
+		if(_bomber.getXTile() < _e.getXTile())
+			return 3;
+		else if(_bomber.getXTile() > _e.getXTile())
+			return 1;
+		
+		return -1;
+	}
+	
+	public int calculateRowDirection() {
+		if(_bomber.getYTile() < _e.getYTile())
+			return 0;
+		else if(_bomber.getYTile() > _e.getYTile())
+			return 2;
+		return -1;
+	}
+        
         /**    x1 x2 x3   
          *   y1   3  2  1
          *   y2   4  e  0
@@ -93,21 +122,12 @@ public class AILow extends AI {
             return -1;
         }
         
-        /**
-         *   0 lên trên
-         *   2 xuống dưới 
-         *   1 sang phải
-         *   3 sang trái
-         *   -1 đứng yên
-         * 
-         * @return 
-         */
         
-	@Override
-	public int calculateDirection() {
-		//  cài đặt thuật toán tìm đường đi
-               
-              int Xe = this._e.getXTile();
+        
+        
+    @Override
+    public int calculateDirection() {
+       int Xe = this._e.getXTile();
               int Ye = this._e.getYTile();
                
                // top left   
@@ -197,27 +217,42 @@ public class AILow extends AI {
                        
                    }
                }
-               
+               // nếu ko có nguy  hiểm
                if ( thread == 0 ){
                  //  return -1;
-                   return  random.nextInt(4);
+                  
+                  int vertical = random.nextInt(2); 
+                        if(vertical == 1) {
+			int v = calculateRowDirection();
+                            if(v != -1)
+				return v;
+                            else
+				return calculateColDirection();
+			
+                            } else {
+			int h = calculateColDirection();
+			
+                            if(h != -1)
+                              	return h;
+                            else
+				return calculateRowDirection();
+                            }
                }
                
                // trường hợp không có đường đi hợp lý 
-               // thì sẽ cho di theo hương ran dom 
-                    if ( way.size() == 0 ){
+               // thì sẽ cho ramdo bừa
+                if ( way.size() == 0 ){
                        return random.nextInt(4);
-                        
-                        
                      }    
+                // tồn tạ đường duy nhất
                     if ( way.size() == 1){
                       //  System.out.println("di theo huong " + way.get(0) );
                          return way.get(0);
                      }
                    
-                        
-
-		return way.get(random.nextInt(way.size()));
-	}
-
+    
+                    return way.get(random.nextInt(way.size()));
+    }
+    
+    
 }
