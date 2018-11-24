@@ -20,6 +20,7 @@ import uet.oop.bomberman.entities.tile.Grass;
 import uet.oop.bomberman.entities.tile.Portal;
 import uet.oop.bomberman.entities.tile.Wall;
 import uet.oop.bomberman.entities.tile.destroyable.Brick;
+import uet.oop.bomberman.entities.tile.item.BombItem;
 import uet.oop.bomberman.entities.tile.item.SpeedItem;
 import uet.oop.bomberman.exceptions.LoadLevelException;
 import uet.oop.bomberman.graphics.Screen;
@@ -109,11 +110,26 @@ public class FileLevelLoader extends LevelLoader {
 					//vị chí mặc định ô đầu tiên
                                         Screen.setOffset(0, 0);
 					break;
+                                //Item
                                 // flame của bom
                                  case 'f':
-                                     _board.addEntity(pos, new LayeredEntity(x, y, new Grass(x, y, Sprite.grass), new SpeedItem(x, y, Sprite.powerup_flames), new Brick(x, y, Sprite.brick)));
+                                     _board.addEntity(pos  
+                                             ,  new LayeredEntity(x, y, new Grass(x, y, Sprite.grass)
+                                             , new SpeedItem(x, y, Sprite.powerup_flames), 
+                                                     new Brick(x, y, Sprite.brick)));
                                  break;
-                                    // cổng portal
+                                
+                                 // so luong bom
+				case 'b':
+						_board.addEntity(pos, new LayeredEntity(x, y, new Grass(x, y, Sprite.grass), new BombItem(x, y, Sprite.powerup_bombs), new Brick(x, y, Sprite.brick)));
+						break;
+                                 // tốc độ                   
+				case 's':
+						_board.addEntity(pos, new LayeredEntity(x, y, new Grass(x, y, Sprite.grass), new SpeedItem(x, y, Sprite.powerup_speed), new Brick(x, y, Sprite.brick)));
+						break;
+                                 
+
+                            // cổng portal
                                  case 'x':
                                      _board.addEntity(pos
                                              , new LayeredEntity(x, y, new Grass(x, y, Sprite.grass)
