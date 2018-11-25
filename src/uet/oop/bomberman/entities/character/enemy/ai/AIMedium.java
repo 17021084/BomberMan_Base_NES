@@ -1,355 +1,254 @@
+
 package uet.oop.bomberman.entities.character.enemy.ai;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.Queue;
 import uet.oop.bomberman.Board;
 import uet.oop.bomberman.Game;
 import uet.oop.bomberman.entities.character.Bomber;
 import uet.oop.bomberman.entities.character.enemy.Enemy;
-import uet.oop.bomberman.entities.tile.destroyable.Brick;
-import uet.oop.bomberman.level.FileLevelLoader;
 
+/**  tim den bomber bang khoang cách , chưa thông minh có khả năng tránh bom
+ *
+ * @author DoQuangTrung
+ */
 public class AIMedium extends AI {
-	Bomber _bomber;
+        Bomber _bomber;
 	Enemy _e;
         Board _board;
-        
-        // gia tri matrix[x][y] la ten cua dinh tuong ung voi vi tri x y
-//        public int[][] matrix = new int [_board.getLevel().getHeight()+1][_board.getLevel().getWidth()+1];   
-        // ma trận cạnh kề của 1 đỉnh
-	public ArrayList<Integer> path = new ArrayList();
-        public int heigh = Game.HEIGHTTile;
-        public int width  = Game.WIDTHTile;
-        public int[][] node = new int[heigh*width][4]; 
-        public int numOfNode = heigh*width;
-        public int[][] matrix = new int[heigh][width];  
+        int radius = Game.getBombRadius();
 
+    public AIMedium(Bomber _bomber, Enemy _e, Board _board) {
+        this._bomber = _bomber;
+        this._e = _e;
+        this._board = _board;
+    }
+        /**
+         * tính toán tọa độ bomber so với con eneamy
+         * @return hướn đi 
+         */
         
-	public AIMedium(Bomber bomber, Enemy e ,Board b) {
-		_bomber = bomber;
-		_e = e;
+        public int calculateColDirection() {
+		if(_bomber.getXTile() < _e.getXTile())
+			return 3;
+		else if(_bomber.getXTile() > _e.getXTile())
+			return 1;
+		
+		return -1;
 	}
-        public AIMedium(){}
+	
+	public int calculateRowDirection() {
+		if(_bomber.getYTile() < _e.getYTile())
+			return 0;
+		else if(_bomber.getYTile() > _e.getYTile())
+			return 2;
+		return -1;
+	}
         
+        /**    x1 x2 x3   
+         *   y1   3  2  1
+         *   y2   4  e  0
+         *   y3   5  6  7  
+     * @param Xb toa do x bom
+     * @param Yb toa do y bom
+         * @return vị chí của bọm trong khu vực dò của enenmy
+         * @return -1 nếu không thuộc phạm vi dò
+         */
         
-           // phần này dùng cho thuật toán BFS
-         //gia tri matrix[x][y] la ten cua dinh tuong ung voi vi tri x y
-        
-        
-       public  void getMatrix(){
-            
-//             for ( int i = 0 ; i < 13 ; i++){
-//                   for ( int j = 0 ; j < 31 ; j++){
-//                     matrix[i][j]=0;    
-//                }
-//                    
-//             }
-//             
-//             
-//             int nameOfVertext=1;
-//             for ( int i = 1; i < 12; i++ ){
-//                 for ( int j = 1 ; j < 30 ; j++){
-//                    // i le thi toan bo =0
-//                     if ( i%2 != 0){
-//                        matrix[i][j] = nameOfVertext;
-//                        nameOfVertext++;
-//                     }
-//                     else{
-//                         if( j%2 !=0  ){
-//                             matrix[i][j] = nameOfVertext;
-//                            nameOfVertext++; 
-//                         }
-//                     }
-//                 }
-//             }
-
-              int nameOfVertext=1;
-            for ( int i = 0 ; i < heigh ; i++){
-                   for ( int j = 0 ; j < width ; j++){
-                     if (  FileLevelLoader._map[i][j] =='#'  ){
-                         matrix[i][j]=0;  
+        public int detectBombinRanger(int  Xb  ,int  Yb ){
+               
+               int Xe = this._e.getXTile();
+               int Ye = this._e.getYTile();
+            // ngang
+                if ( Yb == Ye ){
+                    //  bom o ben phai    
+                    if ( (Xb- Xe) > 0 && ( Xb - Xe ) <= radius  ){
+                      //  System.out.println("phai");
+                        return 0; // phai
+                    }          
+                    // bom o ben trai
+                    if( (Xe- Xb) > 0 && ( Xe - Xb ) <= radius  ){
+                    //    System.out.println("trai");
+                        return 4;// trai
+                    }  
+                }    
+            // doc    
+                if  ( Xb == Xe  ){
+                    
+                    //  bom oi duoi  
+                    if ( (Yb- Ye) > 0 && ( Yb - Ye ) <= radius  ){
+                       // System.out.println("duoi");
+                        return 6; // duoi
+                    }                    
+                    //  bom o ben tren
+                    if( (Ye- Yb) > 0 && ( Ye - Yb ) <= radius  ){
+                       // System.out.println("tren");
+                        return 2;//tren
+                    }                     
+                }
+                
+                
+            // goc ben tren 
+                 if ( (Ye - Yb > 0 ) && (Ye - Yb <=radius )  ){
+                     // bom o phai tren
+                     if ( (Xb - Xe) > 0 && ( Xb- Xe) <=radius ){
+                       //  System.out.println("phai tren");
+                         return 1;//phair tren
                      }
-                     else if ( FileLevelLoader._map[i][j] =='*' || FileLevelLoader._map[i][j] == 'x' ){
-                         matrix[i][j]=nameOfVertext*(-1);
-                         nameOfVertext++;
-                     }else {
-                         this.matrix[i][j]=nameOfVertext;
-                             nameOfVertext++;
-                     }   
-                     
-                }
-                    
-             }
-             
-             
-             
-             
-             
-             
-           
-             
-             
+                     // bom o trai tren 
+                     if ( (Xe - Xb) > 0 && ( Xe- Xb) <=radius ){
+                       //  System.out.println("trai tren");
+                         return 3; // trai tren
+                     }                     
+                 }
+                //goc ben duoi
+                     if ( (Yb - Ye > 0) && ( Yb - Ye <=radius ) ){
+                     // xet goc duoi phai
+                     if ( (Xb - Xe) > 0 && ( Xb- Xe) <=radius ){
+                        // System.out.println("duoi phai");
+                         return 7;//duoi phai
+                     }
+                     // duoi trai
+                     if ( (Xe - Xb) > 0 && ( Xe- Xb) <=radius ){
+                       //  System.out.println("duoi trai");
+                         return 5; // trai duoi
+                     }                     
+                 }
+           // khong co bom thi    
+         //   System.out.println("ko co");
+            return -1;
         }
-     
         
-       /**
-        *  cập nhập lại nhưng viên gạch đã phá
-        */
         
-        public void updatedestroy_Brick(){
-            if ( Brick.Xgachvo.isEmpty() ) return;
-            
-            for ( int i = 0 ;i < Brick.Xgachvo.size();i++ ){
-                int Xgach = Brick.Xgachvo.get(i);
-                int Ygach = Brick.Ygachvo.get(i);
-                // kiểm tra bị phá chưa
-                if ( matrix [Ygach][Xgach] < 0 ){
-                    // chưa phá thì cho nó pha ròi
-                    //System.out.println("Sout AI medium da doi thanh cong :  x = " + Xgach + " y = "+ Ygach + " dinh thu " + matrix [Ygach][Xgach]);
-                    matrix [Ygach][Xgach] =  matrix [Ygach][Xgach]*(-1);
-                    
-                }
+        
+        
+    @Override
+    public int calculateDirection() {
+       int Xe = this._e.getXTile();
+              int Ye = this._e.getYTile();
+               
+               // top left   
+               /*
+                    tl      tm      tr
                 
-            }
-            
-            
-             
-        }
-    
-        
-        
-        
-    
-    /**
-        từ ma trận đỉnh chuyển sang ma trân cạnh kề
-    
-    */
-    
-    
-        public void convertNearNodeMatrix(){
-            
-             for ( int i =1 ; i < 12 ; i++){  
-                    for ( int j=1 ;j< 30 ; j++ ){
-                         if ( this.matrix[i][j] > 0 ){
-                             // cùng hàng
-                             
-                                // bên trái
-                             if (this.matrix[i][j-1] > 0 ){
-                                 this.node[ this.matrix[i][j] ][0]=this.matrix[i][j-1];
-                             }else{
-                                 this.node[this.matrix[i][j]][0]=0; // không có đỉnh kể
-                             }
-                                 //bên phải
-                             if (this.matrix[i][j+1] > 0 ){
-                                 this.node[ this.matrix[i][j] ][1]=this.matrix[i][j+1];
-                             }else{
-                                 this.node[this.matrix[i][j]][1]=0;
-                             }
-                             
-                             //cùng cột
-                                   //bên trên
-                             
-                             if (this.matrix[i-1][j] > 0 ){
-                                 this.node[ this.matrix[i][j] ][2]=this.matrix[i-1][j];
-                             }else{
-                                 this.node[this.matrix[i][j]][2]=0;
-                             }
-                             
-                                   //bên dưới
-                             if (this.matrix[i+1][j] > 0 ){
-                                 this.node[ this.matrix[i][j] ][3]=this.matrix[i+1][j];
-                             }else{
-                                 this.node[this.matrix[i][j]][3]=0;
-                             }
-                             
-                         }
+                     l      m       r
                         
-                      }
-             }
-           
-            
-        }
-        
-        
-         public void updateMatrix(){
-        //this._board.getBombs()
-        
-        
-        //update vị chí bom 
-        int r =Game.getBombRadius(); // bán kính vụ nổi 
-        // toa độ enemy
-        int xe = this._e.getXTile();
-        int ye = this._e.getYTile();
-        int xb = this._bomber.getXTile();
-        int yb = this._bomber.getYTile();
-        
-        for ( int i =0 ; i  < this._bomber.getBombs().size() ;i++){
-                    // tọa độ quả bom đc đặt
-                  int xt =  this._bomber.getBombs().get(i).getXTile();
-                  int yt =  this._bomber.getBombs().get(i).getYTile();
-                         
-            // làm tạm mất đỉnh mà quả bom đang ở ( làm âm nó đi)
-                this.matrix[yt][xt] *=-1; 
-            // làm tạm mất các đỉnh trong vù ảnh hưởng của bom ( âm nó đi)
-            
-            // xét ngang
-                    //phải    && yt!=yb && xt+j != xb 
-            for ( int j=1 ; j <= r;j++){
-                if ( this.matrix[yt][xt+j] > 0 && yt!=ye && xt+j != xe   ){
-                    // tức là sẽ dùng việc bôi đen lại nếu enemy trong vùng ảnh hương
-                    // dừng việc bôi đen khi găp người
-                    this.matrix[yt][xt+j] *=-1;
-                }else{
-                    break;
-                }              
-            }
-                   //trai
-            for ( int j=1 ; j <= r; j++){
-                if ( this.matrix[yt][xt-j] > 0 && yt!=ye && xt-j != xe){
-                    // tức là sẽ dùng việc bôi đen lại nếu enemy trong vùng ảnh hương
-                    // dừng việc bôi đen khi găp người
-                  
-                    this.matrix[yt][xt-j] *=-1;
-                
-                }else{
-                    break;
-                }              
-            }       
-            // xet dọc
-                //dưới
-            for ( int j=1 ; j <= r;j++){
-                if ( this.matrix[yt+j][xt] > 0  && yt+j != ye && xt!= xe ){
-                    // tức là sẽ dùng việc bôi đen lại nếu enemy trong vùng ảnh hương
-                    // dừng việc bôi đen khi găp người
-                   
-                    this.matrix[yt+j][xt] *=-1;
-                }else{
-                    break;
-                }              
-            }   
-                //trên
-            for ( int j=1 ; j <= r;j++){
-                if ( this.matrix[yt-j][xt] > 0 && yt-j != ye && xt != xe){
-                    // tức là sẽ dùng việc bôi đen lại nếu enemy trong vùng ảnh hương
-                    // dừng việc bôi đen khi găp người
+                     bl     bm      br
+               
+               
+               */               
+               // canGo  -1 tương ứng với cango[4]
+                                //0     1      2    3   4 (-1)
+              boolean[] canGo = { true, true,true,true,true};
+              
+               ArrayList<Integer> way = new ArrayList<Integer>();
 
-                    this.matrix[yt-j][xt] *=-1;
-                }else{
-                    break;
-                }              
-            }                     
-        }      
-        
-        
-        
-        
-        
-        
-    }
-        
-        int bfs( int start , int end  ) throws IllegalStateException { // exception khi que ko còn chỗ
-         // tao cai  Queue node
-        Queue<Integer> qNode = new LinkedList<Integer>(); 
-
-        
-        
-        
-        int [] parent = new int[numOfNode+1];
-        boolean [] visted = new boolean[numOfNode+1];
-        
-        // System.out.println("");
-        
-        
-        // sét nhan cho đinh, xét đỉnh cha
-        if ( start < 0 ) start *=-1;
-        if ( end <0 ) end *=-1;
-        
-        visted[start] = false;
-        parent[start] = -1; // sét mặc định đỉnh cha 
-        parent[end]=-1;
-       
-        // thêm đỉnh start vào đầu
-        qNode.add(start);
-        
-        while ( !qNode.isEmpty()){
-            // dequeue phanaf tử đầu tiên ra 
-            int currentNode = qNode.poll();
-          
-            // duyệt toàn bộ đỉnh kể với current , nếu chưa visit thì dán cho là visit
-            for ( int i = 0 ; i<4 ; i++ ){
-                if ( visted[node[currentNode][i]]==false && node[currentNode][i]!=0 ) {
-                    // dán nhãn đã thăm
-                    visted[node[currentNode][i]]= true;
-                    // gán đỉnh cha
-                    parent[node[currentNode][i]] = currentNode;
-                    // cho vào queue
-                    qNode.add(node[currentNode][i]);
-                    
+               int thread =0;
+               
+               // duyet toan bo list bom cua bang 
+            for ( int i = 0 ; i < this._board.getBombs().size() ; i++){
+                  // phat hiện bom
+                int Xb = this._board.getBombs().get(i).getXTile();
+                int Yb = this._board.getBombs().get(i).getYTile();
+                 
+                // xét những quả bom trong miền sét 
+                if ( this.detectBombinRanger(Xb, Yb)!=-1 ){
+                    thread++;
+                    // tùy trường hợp thì mình sẽ sét cách  hướng KHÔNG THỂ ĐI
+                    //  chú ý 4 thay cho -1;
+                    switch (this.detectBombinRanger(Xb, Yb) ){
+                        case 0:
+                            if ( Xb - Xe == this.radius ){
+                                canGo[4]=canGo[1]=false;
+                            }else{
+                                canGo[4]=canGo[1]=canGo[3]= false;
+                            }
+                            
+                            break;
+                        case 1:
+                            canGo[1]=canGo[0]= false;                                                             
+                            break;
+                        case 2:
+                            if ( Ye - Yb == this.radius ){
+                                canGo[4]=canGo[0]=false;
+                            }else{
+                                canGo[4]=canGo[0]=canGo[2]= false;
+                               
+                            }                           
+                            break;
+                        case 3:
+                             canGo[3]=canGo[0]= false;    
+                            break;
+                        case 4:
+                            if ( Xe - Xb == this.radius ){
+                                canGo[4]=canGo[3]=false;
+                            }else{
+                                canGo[4]=canGo[1]=canGo[3]= false;
+                            }                                       
+                            break;
+                        case 5:
+                           canGo[2]=canGo[3]= false;        
+                            break;
+                        case 6:
+                            if ( Yb - Ye == this.radius ){
+                                canGo[4]=canGo[2]=false;
+                            }else{
+                                canGo[4]=canGo[0]=canGo[2]= false;
+                            }                           
+                            break;
+                        case 7:
+                            canGo[1]=canGo[2]= false;       
+                            break;                         
+                    }
                 }
                   
-            }         
-        }
-        
-        
-        
-        // xuất đường đi ngắn nhất ra
-        int p = parent[end];
-        
-        // thêm node cuối
-      
-       if (p != -1){
-           
-             path.add(end);
-             path.add(p);
-             while ( p!=start){ // chu di den goc
-                 p = parent[p];
-                 path.add(p);
-            }
-//             for ( int i =0 ; i < path.size() ; i++ ){
-//                System.out.println(path.get(i)+ " ");
-//            }
-            // tra ve thang thu 2
-            return path.get(path.size()-2);
-            
-       }
-      
-       
-       return -1;
+              } 
+               for ( int k =0  ; k < canGo.length ; k++){
+                   if ( canGo[k]==true ) {
+                      if ( k == 4 ){
+                          way.add(-1); // chuyển 4 là -1
+                      }
+                      else{
+                        way.add(k);  
+                      }
+                       
+                   }
+               }
+               // nếu ko có nguy  hiểm
+               if ( thread == 0 ){
+                 //  return -1;
+                  
+                  int vertical = random.nextInt(2); 
+                        if(vertical == 1) {
+			int v = calculateRowDirection();
+                            if(v != -1)
+				return v;
+                            else
+				return calculateColDirection();
+			
+                            } else {
+			int h = calculateColDirection();
+			
+                            if(h != -1)
+                              	return h;
+                            else
+				return calculateRowDirection();
+                            }
+               }
+               
+               // trường hợp không có đường đi hợp lý 
+               // thì sẽ cho ramdo bừa
+                if ( way.size() == 0 ){
+                       return random.nextInt(4);
+                     }    
+                // tồn tạ đường duy nhất
+                    if ( way.size() == 1){
+                      //  System.out.println("di theo huong " + way.get(0) );
+                         return way.get(0);
+                     }
+                   
+    
+                    return way.get(random.nextInt(way.size()));
     }
-     
-         
-         
-        
-	@Override
-	public int calculateDirection() {
-		// TODO: cài đặt thuật toán tìm đường đi
-       
-            
-            this.getMatrix();
-            this.updateMatrix();
-            this.updatedestroy_Brick();
-            this.convertNearNodeMatrix();
-           
-//            đỉnh bắt đầu 
-            int start = this.matrix [this._e.getYTile()][this._e.getXTile()];
-//             toaj ddoo dinh ket thuc laf toa do cua boober
-            int end = this.matrix[this._bomber.getYTile()][this._bomber.getXTile()];
-            
-//             trả về đỉnh cần đi tiếp
-            int result = this.bfs(start, end);
-             
-            if (result == -1 ) return -1;  
-           
-            if ( result - start == 1 ) return 1; // ben phai
-            if ( start -  result == 1) return 3; // ssang trai
-            if ( start > result ) return 0; // len tren
-            if ( start < result ) return 2; // duoi
-                     
-		return -1;// dung im
-	}
-
-       
-        
-        
+    
+    
 }

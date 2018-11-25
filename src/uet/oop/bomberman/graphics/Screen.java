@@ -6,6 +6,7 @@ import uet.oop.bomberman.entities.Entity;
 import uet.oop.bomberman.entities.character.Bomber;
 
 import java.awt.*;
+import uet.oop.bomberman.sound_effective.Sound;
 
 /**
  * Xử lý render cho tất cả Entity và một số màn hình phụ ra Game Panel
@@ -92,7 +93,7 @@ public class Screen {
 		Font font = new Font("Arial", Font.PLAIN, 20 * Game.SCALE);
 		g.setFont(font);
 		g.setColor(Color.white);
-		drawCenteredString("GAME OVER", getRealWidth(), getRealHeight(), g);
+		drawCenteredString(" Bạn quá gà !! ", getRealWidth(), getRealHeight(), g);
 		
 		font = new Font("Arial", Font.PLAIN, 10 * Game.SCALE);
 		g.setFont(font);

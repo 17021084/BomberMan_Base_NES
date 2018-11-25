@@ -8,6 +8,7 @@ import java.awt.*;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
+import uet.oop.bomberman.sound_effective.Sound;
 
 /**
  * Tạo vòng lặp cho game, lưu trữ một vài tham số cấu hình toàn cục,
@@ -146,7 +147,7 @@ public class Game extends Canvas {
 		int updates = 0;
                 
 		requestFocus();
-                
+                Sound.playBackGround();
 		while(_running) {
 			long now = System.nanoTime(); // thời gian bây h
 			delta += (now - lastTime) / ns;   // denta t tức là thời gian  vòng loob cũ .  đơn vị  s^2 

@@ -13,6 +13,7 @@ import uet.oop.bomberman.graphics.Sprite;
 import uet.oop.bomberman.level.Coordinates;
 
 import java.awt.*;
+import uet.oop.bomberman.sound_effective.Sound;
 
 public abstract class Enemy extends Character {
 
@@ -176,7 +177,10 @@ public abstract class Enemy extends Character {
 		_alive = false;
 		
 		_board.addPoints(_points);
-
+                // add âm thanh
+                Sound.playMosterDie();
+                
+                
 		Message msg = new Message("+" + _points, getXMessage(), getYMessage(), 2, Color.white, 14);
 		_board.addMessage(msg);
 	}

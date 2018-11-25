@@ -5,6 +5,7 @@ import uet.oop.bomberman.entities.Entity;
 import uet.oop.bomberman.entities.character.Bomber;
 import uet.oop.bomberman.entities.character.enemy.Enemy;
 import uet.oop.bomberman.graphics.Screen;
+import uet.oop.bomberman.sound_effective.Sound;
 
 public class Flame extends Entity {
 
@@ -114,10 +115,15 @@ public class Flame extends Entity {
 
 		if(e instanceof Enemy) { //  xử lý va chạm với Enemy,
 			((Enemy) e).kill();
-		}
+                        // âm thanh lúc enemy chết
+                        Sound.playMosterDie();
+                }
                 
                 if(e instanceof Bomber) {//  xử lý va chạm với Bomber,
 			((Bomber)e).kill();
+                        // thêm âm thanh bom chết
+                        Sound.playBomberDie();
+                        
 		}
                 
 		return true;

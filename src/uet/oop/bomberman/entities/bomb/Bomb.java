@@ -9,6 +9,7 @@ import uet.oop.bomberman.graphics.Screen;
 import uet.oop.bomberman.graphics.Sprite;
 import uet.oop.bomberman.level.Coordinates;
 import uet.oop.bomberman.entities.character.Character;
+import uet.oop.bomberman.sound_effective.Sound;
 
 public class Bomb extends AnimatedEntitiy {
 
@@ -100,6 +101,7 @@ public class Bomb extends AnimatedEntitiy {
             // nếu tọa độ trùng nhau thì giết
             if ( Xb == this.getXTile() && this.getYTile()== Yb  ){
                     this._board.getBomber().kill();
+                    Sound.playBomberDie();
             }
             
          
@@ -109,7 +111,7 @@ public class Bomb extends AnimatedEntitiy {
             for (int i = 0; i < _flames.length; i++) {
 		_flames[i] = new Flame((int)_x, (int)_y, i, Game.getBombRadius(), _board);
             }
-		
+		Sound.playBombExplose();
 		
 		
 	}

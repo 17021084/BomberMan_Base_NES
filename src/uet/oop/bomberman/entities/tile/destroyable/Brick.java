@@ -7,6 +7,7 @@ import uet.oop.bomberman.entities.bomb.Flame;
 import uet.oop.bomberman.graphics.Screen;
 import uet.oop.bomberman.graphics.Sprite;
 import uet.oop.bomberman.level.Coordinates;
+import uet.oop.bomberman.sound_effective.Sound;
 
 public class Brick extends DestroyableTile {
 	
@@ -60,7 +61,7 @@ public class Brick extends DestroyableTile {
                  
 			addXgachvo(this.getXtile());
                         addYgachvo(this.getYtile());
-                    
+                        Sound.playBombExplose();
                         destroy();
                         return true; // cho qua khi no xong
                 }

@@ -4,6 +4,7 @@ import uet.oop.bomberman.Board;
 import uet.oop.bomberman.entities.Entity;
 import uet.oop.bomberman.entities.character.Bomber;
 import uet.oop.bomberman.graphics.Sprite;
+import uet.oop.bomberman.sound_effective.Sound;
 
 public class Portal extends Tile {
         // theem bang
@@ -32,6 +33,7 @@ public class Portal extends Tile {
                     // giết hết quái rồi thì có thể qua màn
                     if(e.getXTile() == getX() && e.getYTile() == getY()) {
 				if(_board.detectNoEnemies())
+                                        Sound.playWin();
 					_board.nextLevel();
 			}
                     

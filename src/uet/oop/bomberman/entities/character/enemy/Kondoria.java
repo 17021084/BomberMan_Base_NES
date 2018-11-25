@@ -7,7 +7,7 @@ package uet.oop.bomberman.entities.character.enemy;
 
 import uet.oop.bomberman.Board;
 import uet.oop.bomberman.Game;
-import uet.oop.bomberman.entities.character.enemy.ai.AISemi;
+import uet.oop.bomberman.entities.character.enemy.ai.AIMedium;
 import uet.oop.bomberman.graphics.Sprite;
 
 /**
@@ -21,7 +21,7 @@ public class Kondoria  extends Enemy{
 		
 		_sprite = Sprite.kondoria_right1;
 		
-		_ai = new AISemi(_board.getBomber(), this, board); //TODO: implement AIHigh 
+		_ai = new AIMedium(_board.getBomber(), this, board); //TODO: implement AIHigh 
 		_direction  = _ai.calculateDirection();
 	}
 	/*

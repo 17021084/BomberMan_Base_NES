@@ -4,6 +4,7 @@ import uet.oop.bomberman.Game;
 import uet.oop.bomberman.entities.Entity;
 import uet.oop.bomberman.entities.character.Bomber;
 import uet.oop.bomberman.graphics.Sprite;
+import uet.oop.bomberman.sound_effective.Sound;
 
 public class SpeedItem extends Item {
 
@@ -17,6 +18,7 @@ public class SpeedItem extends Item {
                         // add thêm  sức mạnh của flame
                         ((Bomber) e).addPowerup(this); 
 			remove();
+                        Sound.playGetNewItem();
 			return true;
 		}
 		

@@ -80,9 +80,9 @@ public class FlameSegment extends Entity {
 	public boolean collide(Entity e) {
 		// xử lý  mép  ngoài lửa chạm vaò chạm với enemy
                 // tạm thời tắt
-            if(e instanceof Enemy) {
-		((Enemy)e).kill();
-            }    
+//            if(e instanceof Enemy) {
+//		((Enemy)e).kill();
+//            }    
                 // xử lí va chạm với bomber chạm vào cái mép cuối vụ nổ
              if(e instanceof Bomber) {
 		((Bomber) e).kill();

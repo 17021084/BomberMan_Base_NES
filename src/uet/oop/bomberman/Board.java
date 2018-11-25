@@ -22,6 +22,7 @@ import java.util.Scanner;
 import uet.oop.bomberman.entities.tile.Grass;
 import uet.oop.bomberman.entities.tile.destroyable.Brick;
 import uet.oop.bomberman.entities.tile.destroyable.DestroyableTile;
+import uet.oop.bomberman.sound_effective.Sound;
 
 
 /**
@@ -95,6 +96,7 @@ public class Board implements IRender {
 	}
 	
 	public void nextLevel() {
+                Sound.playStartStage();
 		loadLevel(_levelLoader.getLevel() + 1);
 	}
 	
@@ -123,6 +125,7 @@ public class Board implements IRender {
 	}
 	
 	public void endGame() {
+                Sound.playLose();
 		_screenToShow = 1;
 		_game.resetScreenDelay();
 		_game.pause();

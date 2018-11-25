@@ -17,6 +17,7 @@ import uet.oop.bomberman.entities.character.enemy.Enemy;
 import uet.oop.bomberman.entities.tile.destroyable.Brick;
 import uet.oop.bomberman.entities.tile.item.Item;
 import uet.oop.bomberman.level.Coordinates;
+import uet.oop.bomberman.sound_effective.Sound;
 
 public class Bomber extends Character {
 
@@ -122,6 +123,7 @@ public class Bomber extends Character {
         Bomb bom = new Bomb(x, y, _board);
         // thêm bom vào board
         _board.addBomb(bom);
+        Sound.playPlaceNewBomb();
         
 //        for ( int i = 0 ; i < Brick.Ygachvo.size() ; i++ ){
 //           System.out.println( i + " SOUT trong bomber toa do x = " + Brick.Xgachvo.get(i) + " y = " +Brick.Ygachvo.get(i)  );
@@ -148,6 +150,7 @@ public class Bomber extends Character {
     public void kill() {
         if (!_alive) return;
         _alive = false;
+        Sound.playBomberDie();
     }
 
     @Override
