@@ -125,6 +125,10 @@ public class Flame extends Entity {
                         Sound.playBomberDie();
                         
 		}
+                if ( e instanceof Bomb){
+                    ( (Bomb) e).explode();
+                }
+                
                 
 		return true;
             

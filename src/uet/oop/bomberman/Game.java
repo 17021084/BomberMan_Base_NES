@@ -37,8 +37,8 @@ public class Game extends Canvas {
 	public static final String TITLE = "Bomberman_Game";
 	
         // chỉ số vể nhân vật là hằng số  mặc định
-	private static final int BOMBRATE = 10; // số bom có thể đặt
-	private static final int BOMBRADIUS = 2; // độ dài của vụ nổ
+	private static final int BOMBRATE = 1; // số bom có thể đặt
+	private static final int BOMBRADIUS = 1; // độ dài của vụ nổ
 	private static final double BOMBERSPEED = 1.0; // tốc độ của nhân vật bomber
 	
 	public static final int TIME = 200; // thời gian hết một màn

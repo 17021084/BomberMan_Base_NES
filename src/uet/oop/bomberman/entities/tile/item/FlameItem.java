@@ -20,7 +20,7 @@ public class FlameItem extends Item {
                         // add thêm  sức mạnh của flame
                         ((Bomber) e).addPowerup(this); 
 			remove();
-                        Sound.playGetNewItem();
+                        Sound.playGetNewItem();// thêm âm nhạc
 			return true;
 		}
 		return false;
@@ -31,7 +31,7 @@ public class FlameItem extends Item {
                 
                 this.setActive(true);
 		// thăng bán kính bom
-                Game.addBombRadius(1);
+                Game.addBombRadius(2);
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

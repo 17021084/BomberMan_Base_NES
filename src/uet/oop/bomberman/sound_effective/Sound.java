@@ -29,6 +29,8 @@ public class Sound {
     public static String win = "res\\sound\\win.wav";
     public static String backgroundGame = "res\\sound\\2stepfromhell.wav";
     public static String playGame = "res\\sound\\playgame.mid";
+    public static String destroy ="res\\sound\\destroy.wav";
+    
     public Sound() {
     }
     
@@ -42,6 +44,7 @@ public class Sound {
            AudioStream  audio = new AudioStream (music);
            AudioPlayer.player.start(audio);
            
+          
        }catch(IOException e) {
            e.printStackTrace();
        }
@@ -49,25 +52,7 @@ public class Sound {
         
     }
     
-    public static void playMusic( String filePath){
-        AudioPlayer MGP = AudioPlayer.player;
-        AudioStream BMG;
-        AudioData MD;
-        // vòng lăp
-        ContinuousAudioDataStream loop = null;
-        try{
-            BMG = new AudioStream ( new FileInputStream(filePath));
-            MD = BMG.getData();
-            
-            loop = new  ContinuousAudioDataStream(MD);
-              BMG.close();
-        }catch( IOException e){
-            e.printStackTrace();
-            
-        }
-        MGP.start(loop);
-       
-    }
+   
     
     /**
      * các hàm gọi trong các trường hợp trong game
@@ -77,6 +62,9 @@ public class Sound {
      */
     
     
+    public static void playDestroy(){
+        Sound.play(destroy);
+    }
     
     public static  void playBombExplose(){
         Sound.play(bombExplose);

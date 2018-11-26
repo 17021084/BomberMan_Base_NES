@@ -104,8 +104,6 @@ public class Bomb extends AnimatedEntitiy {
                     Sound.playBomberDie();
             }
             
-         
-            
             //  tạo các Flame nổ 4 chiều
             _flames = new Flame[4];
             for (int i = 0; i < _flames.length; i++) {
@@ -146,7 +144,7 @@ public class Bomb extends AnimatedEntitiy {
                 double diffY = e.getY() - Coordinates.tileToPixel(getY());
 			
                 // kiểm tra xem thằng boomber đã rời vị chí quả bom vừa đặt lúc nãy chưa
-                if(!( diffY >= 1 && diffY <= 28 && diffX >= -10 && diffX < 16 )) { 
+                if(!( diffY >= 1 && diffY <= 30 && diffX >= -10 && diffX < 16 )) { 
                             // trả về ko thê qua vị chí đó đc nữa			
                      _allowedToPassThroght = false;
                 }
@@ -156,11 +154,29 @@ public class Bomb extends AnimatedEntitiy {
                 return _allowedToPassThroght;
                     
 	    }
-		
-          
-           
+            if ( e instanceof Flame){
+                this._timeToExplode=0;
+                // cho quả bom này thời gian nổ về 0
+                return true;
+            }
+            if ( e instanceof FlameSegment){
+                this._timeToExplode=0;
+                // cho bom có thời gian nổ về 0
+                return true;
+            }
             
+            
+            if ( e instanceof Bomb ){
+                //truong hop bom dat cung 1 luc
+               // if ( ((Bomb) e).isExploded()==false) return true;
+                if ( ((Bomb) e).isExploded()== true) {
+                    this._timeToExplode=0;
+                    return true;
+                }
+                    
                 
+            }
+           
             return false;
 	}
         

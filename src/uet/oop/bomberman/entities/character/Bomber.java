@@ -202,15 +202,13 @@ public class Bomber extends Character {
         for (int c = 0; c < 4; c++) { //kiểm tra 4 góc 
             //chia cho toan độ 1 vi
             double xt = ((_x + x ) + c % 2 * 11 ) / Game.TILES_SIZE;
-            double yt = ((_y + y ) + c / 2 * 12 - 13 ) / Game.TILES_SIZE; 
+            double yt = ((_y + y ) + c / 2 * 12 - 15 ) / Game.TILES_SIZE; 
            /* từ tọa độ của boober _x, _y trong R^2 thì ta chuyển nó về tọa độ của ô 
             dọc 13 ô , ngang 31/ 15 ô
             c0 c1 //  trên 
             c2 c3 //  dưới
             */         
-          
-            
-           
+
             Entity a = _board.getEntity(xt, yt, this);
 			
 		if(!a.collide(this)) 
@@ -263,16 +261,18 @@ public class Bomber extends Character {
         
          if(e instanceof FlameSegment) {
             kill();
+            return true;
         }
          
          // xử lý va chạm với Flame của bom 
         if(e instanceof Flame  ) {
             kill();
-            return false;
+            return true;
 	}
        if ( e instanceof Bomb ){
           if ( ((Bomb) e ).isExploded() == true && ((Bomb)e).isAllowedToPassThroght()==true ){
            kill();   
+           return true;
           }
        }
 

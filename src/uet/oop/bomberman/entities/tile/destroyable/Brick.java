@@ -61,7 +61,7 @@ public class Brick extends DestroyableTile {
                  
 			addXgachvo(this.getXtile());
                         addYgachvo(this.getYtile());
-                        Sound.playBombExplose();
+                        Sound.playDestroy();
                         destroy();
                         return true; // cho qua khi no xong
                 }

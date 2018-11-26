@@ -17,7 +17,7 @@ public class BombItem extends Item {
 		if(e instanceof Bomber) {
 			((Bomber) e).addPowerup(this);
 			remove();
-                        Sound.playGetNewItem();
+                        Sound.playGetNewItem();// hiệu ứng âm thanh
 			return true;
 		}
 		return false;
