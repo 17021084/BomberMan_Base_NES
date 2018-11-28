@@ -30,5 +30,13 @@ public class GamePanel extends JPanel {
 	public Game getGame() {
 		return _game;
 	}
-	
+	// thêm method change size
+        public void changeSize() {
+		setPreferredSize(new Dimension(Game.WIDTH * Game.SCALE, Game.HEIGHT * Game.SCALE));
+		revalidate();
+		repaint();
+	}
+        
+        
+        
 }

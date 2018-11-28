@@ -8,6 +8,7 @@ import java.awt.*;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
+import static sun.net.www.http.HttpClient.resetProperties;
 import uet.oop.bomberman.sound_effective.Sound;
 
 /**
@@ -148,7 +149,17 @@ public class Game extends Canvas {
                 
 		requestFocus();
                 Sound.playBackGround();
+                Keyboard _input = new Keyboard();
+                
+                
 		while(_running) {
+//                    if ( this._paused!=true ){
+//                        if (_input.plause){
+//                            System.out.println("plause game");
+//                           // this.pause();
+//                        }                            
+//                    }
+                    
 			long now = System.nanoTime(); // thời gian bây h
 			delta += (now - lastTime) / ns;   // denta t tức là thời gian  vòng loob cũ .  đơn vị  s^2 
                         // denta =1 ; now -lastTime = ns  => thời gian của của 1 vòng loob = T chu kì chuẩn
@@ -173,11 +184,15 @@ public class Game extends Canvas {
 					_board.setShow(-1);
 					_paused = false;
 				}
+                                
                                 // hiển thị cái screen
 				renderScreen();
 			} else {
                             // hển thị game bình thường
 				renderGame();
+                                if(_input.plause){
+                                
+                                }
 			}
                         //------------------------------------------------------
                         
@@ -254,4 +269,18 @@ public class Game extends Canvas {
 		_paused = true;
 	}
 	
+        public void unpause(){
+            _paused=false;
+        }
+
+        public void run() {
+		_running = true;
+		_paused = false;
+	}
+        
+        public boolean isRunning() {
+		return _running;
+	}
+        
+               
 }

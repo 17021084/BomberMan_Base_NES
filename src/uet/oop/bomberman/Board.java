@@ -22,6 +22,7 @@ import java.util.Scanner;
 import uet.oop.bomberman.entities.tile.Grass;
 import uet.oop.bomberman.entities.tile.destroyable.Brick;
 import uet.oop.bomberman.entities.tile.destroyable.DestroyableTile;
+import uet.oop.bomberman.input.IOClass;
 import uet.oop.bomberman.sound_effective.Sound;
 
 
@@ -94,14 +95,21 @@ public class Board implements IRender {
 		renderCharacter(screen);
 		
 	}
-	
+	// chuyển sang level tiếp
 	public void nextLevel() {
                 Sound.playStartStage();
 		loadLevel(_levelLoader.getLevel() + 1);
 	}
-	
+	// ván mới
+        public void newGame() {
+		resetProperties();
+		loadLevel(1);
+	}
+        
+        
 	public void loadLevel(int level) {
-		_time = Game.TIME;
+		
+                _time = Game.TIME;
 		_screenToShow = 2;
 		_game.resetScreenDelay();
 		_game.pause();
@@ -126,9 +134,18 @@ public class Board implements IRender {
 	
 	public void endGame() {
                 Sound.playLose();
+                // to do : ghi ra file ne ddiem ca nhat
+                Integer highScore = new Integer(  IOClass.Read());
+                if ( this.getPoints()> highScore ){
+                    IOClass.write(this.getPoints());
+                }
+                
+                
+                
 		_screenToShow = 1;
 		_game.resetScreenDelay();
 		_game.pause();
+                
 	}
 	
         /**
@@ -402,7 +419,36 @@ public class Board implements IRender {
 		return _levelLoader.getHeight();
 	}
 
-      
+        // thêm game plause
+        public void gamePause() {
+		_game.resetScreenDelay();
+		if(_screenToShow <= 0)
+			_screenToShow = 3;
+		_game.pause();
+	}
+	
+	public void gameResume() {
+		_game.resetScreenDelay();
+		_screenToShow = -1;
+		_game.run();
+	}
+        
+        @SuppressWarnings("static-access")
+	private void resetProperties() {
+		_points = Game.POINTS;
+		//_lives = Game.LIVES;
+		Bomber._powerups.clear();
+		
+		_game.bomberSpeed = 1.0;
+		_game.bombRadius = 1;
+		_game.bombRate = 1;
+		
+	}
        
+       
+        
+        
+        
+        
         
 }

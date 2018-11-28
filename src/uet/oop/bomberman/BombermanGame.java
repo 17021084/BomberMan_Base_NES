@@ -8,5 +8,8 @@ public class BombermanGame {
 	public static void main(String[] args) {
           Sound.playStartStage();
           new Frame();
+          
+          
+          
 	}
 }

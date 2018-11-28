@@ -4,12 +4,13 @@ import uet.oop.bomberman.Game;
 
 import javax.swing.*;
 import java.awt.*;
-
+import uet.oop.bomberman.menu.Menu;
 /**
  * Swing Frame chứa toàn bộ các component
  */
 public class Frame extends JFrame {
 	
+        
 	public GamePanel _gamepane;
 	private JPanel _containerpane;
 	private InfoPanel _infopanel;
@@ -17,8 +18,9 @@ public class Frame extends JFrame {
 	private Game _game;
 
 	public Frame() {
-		
-		_containerpane = new JPanel(new BorderLayout());
+		 setJMenuBar(new Menu(this));
+	
+                _containerpane = new JPanel(new BorderLayout());
 		_gamepane = new GamePanel(this);
 		_infopanel = new InfoPanel(_gamepane.getGame());
 		
@@ -45,5 +47,22 @@ public class Frame extends JFrame {
 	public void setPoints(int points) {
 		_infopanel.setPoints(points);
 	}
-	
+	// plause game
+        public void pauseGame() {
+		_game.getBoard().gamePause();
+	}
+        public void resumeGame() {
+		_game.getBoard().gameResume();
+	}
+        public boolean isRunning() {
+		return _game.isRunning();
+	}
+        // game
+            // gọi ván mới
+        public void newGame() {
+      
+        _game.getBoard().newGame();
+// throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        }
+       
 }

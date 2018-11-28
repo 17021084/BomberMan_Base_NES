@@ -169,6 +169,20 @@ public class Bomber extends Character {
         if(_input.right) xa++;
         if(_input.up) ya--;
 	if(_input.down) ya++;
+//        // nuts pause
+//        if(_input.plause){
+//            this._board.gamePause();
+//            System.out.println("pause game");
+//        }
+//        // resume  game
+//        if(_input.resume){
+//            this._board.gameResume();
+//            System.out.println("Resume vame");
+//            
+//        }
+            
+        
+        
 	// kiểm tra xem đã ấn nút để di chuyển chưa? rồi  gọi move() để thực hiện di chuyển 	
 	if(xa != 0 || ya != 0)  {
                 // di chuyển phụ thộc tốc độ
