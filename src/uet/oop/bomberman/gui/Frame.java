@@ -40,6 +40,10 @@ public class Frame extends JFrame {
 		_game.start();
 	}
 	
+         public void setLives(int lives){
+            	_infopanel.setLives(lives);
+        }
+        
 	public void setTime(int time) {
 		_infopanel.setTime(time);
 	}
@@ -65,4 +69,6 @@ public class Frame extends JFrame {
 // throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
         }
        
+       
+        
 }

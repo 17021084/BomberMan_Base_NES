@@ -29,8 +29,8 @@ public class BombItem extends Item {
        this.setActive(true);
        // tăng số bom được đặtt
        Game.addBombRate(1);
-        
-//throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+      
+
     }
 	
 

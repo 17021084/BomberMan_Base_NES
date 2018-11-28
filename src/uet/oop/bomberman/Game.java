@@ -9,6 +9,7 @@ import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
 import static sun.net.www.http.HttpClient.resetProperties;
+import uet.oop.bomberman.input.IOClass;
 import uet.oop.bomberman.sound_effective.Sound;
 
 /**
@@ -25,7 +26,7 @@ public class Game extends Canvas {
 	public static final int TILES_SIZE = 16, // độ to của 1 ô gạch
                                
                         // thông số dài rộng theo cái titles size
-				WIDTH = TILES_SIZE * (31 / 2), // 13 ô chiều ngang
+				WIDTH = TILES_SIZE * (31/2), // 13 ô chiều ngang
 				HEIGHT = 13 * TILES_SIZE; // 13 viên  chiều dọc
                          
         public static int WIDTHTile = 31;
@@ -35,16 +36,19 @@ public class Game extends Canvas {
 	public static int SCALE = 3;
 	
         // tên cửa sổ
-	public static final String TITLE = "Bomberman_Game";
+	public static final String TITLE = "Bomberman_Game_Update_by_Do_Quang_Trung";
 	
         // chỉ số vể nhân vật là hằng số  mặc định
 	private static final int BOMBRATE = 1; // số bom có thể đặt
-	private static final int BOMBRADIUS = 1; // độ dài của vụ nổ
+	private static final int BOMBRADIUS =1; // độ dài của vụ nổ
 	private static final double BOMBERSPEED = 1.0; // tốc độ của nhân vật bomber
 	
 	public static final int TIME = 200; // thời gian hết một màn
 	public static final int POINTS = 0; // điểm đạt được    
-	
+	public static final int LIVES = 13; // mang
+        
+        public static final int HIGHSCORE = ( new Integer(IOClass.Read())); // đọc và điểm cao nhất
+        
 	protected static int SCREENDELAY = 3; // delay màn hình
         
         //----------------------------------------------------------------------
@@ -202,6 +206,9 @@ public class Game extends Canvas {
 			if(System.currentTimeMillis() - timer > 1000) {
 				_frame.setTime(_board.subtractTime());
 				_frame.setPoints(_board.getPoints());
+                                _frame.setLives(_board.getLives());
+                               // quy trình : info goi Pannel goi frame goi trong day 
+                                
 				timer += 1000;
                                 // in thông số 
 				_frame.setTitle(TITLE + " | " + updates + " rate, " + frames + " fps");
@@ -244,7 +251,7 @@ public class Game extends Canvas {
 	}
 	
 	public static void addBombRadius(int i) {
-		bombRadius += i;
+		bombRadius += i;             
 	}
 	
 	public static void addBombRate(int i) {
@@ -281,6 +288,13 @@ public class Game extends Canvas {
         public boolean isRunning() {
 		return _running;
 	}
+        
+        // khi chết đi sống lại
+        public static void resestAllPower(){
+            bomberSpeed =BOMBERSPEED;
+            bombRadius  = BOMBRADIUS;
+            bombRate = BOMBRATE;
+        }
         
                
 }

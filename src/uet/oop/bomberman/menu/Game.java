@@ -36,20 +36,8 @@ public class Game extends JMenu{
 		newgame.addActionListener((ActionListener) new MenuActionListener(frame));
 		add(newgame);
 		
-		/*
-		 * Scores
-		 */
-                // điểm cao
-                Integer highScore = new Integer( IOClass.Read());
 		
-                JMenuItem scores = new JMenuItem("High Scores : " +highScore);
-                
-                
-//		scores.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_T, ActionEvent.CTRL_MASK));
-		//scores.addActionListener(new MenuActionListener(frame));
-		add(scores);
-		
-		
+               		
 	}
 	
 	class MenuActionListener implements ActionListener {

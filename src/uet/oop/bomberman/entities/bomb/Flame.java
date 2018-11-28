@@ -117,17 +117,16 @@ public class Flame extends Entity {
 			((Enemy) e).kill();
                         // âm thanh lúc enemy chết
                         Sound.playMosterDie();
+                        return false;
                 }
                 
                 if(e instanceof Bomber) {//  xử lý va chạm với Bomber,
 			((Bomber)e).kill();
                         // thêm âm thanh bom chết
                         Sound.playBomberDie();
-                        
+                        return false;
 		}
-                if ( e instanceof Bomb){
-                    ( (Bomb) e).explode();
-                }
+               
                 
                 
 		return true;

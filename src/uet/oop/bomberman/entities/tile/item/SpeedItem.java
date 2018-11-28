@@ -30,7 +30,8 @@ public class SpeedItem extends Item {
         this.setActive(true);
         
 	Game.addBomberSpeed(0.4);
-        System.out.println("SpeedItem Add complete");
+       // Game.addBombRadius(1);
+        //System.out.println("SpeedItem Add complete");
         // throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

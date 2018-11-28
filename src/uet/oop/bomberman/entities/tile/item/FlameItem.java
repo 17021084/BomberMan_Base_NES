@@ -31,7 +31,9 @@ public class FlameItem extends Item {
                 
                 this.setActive(true);
 		// thăng bán kính bom
-                Game.addBombRadius(2);
+               // Game.addBombRate(1);
+               Game.addBombRadius(1);
+             //  System.out.println("Flamitem");
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

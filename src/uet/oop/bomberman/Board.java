@@ -34,7 +34,8 @@ public class Board implements IRender {
 	protected Game _game;
 	protected Keyboard _input;
 	protected Screen _screen;
-	
+	protected int _live = Game.LIVES; // maang
+        protected int _highScore= Game.HIGHSCORE;
 	public Entity[] _entities;
 	public List<Character> _characters = new ArrayList<>();
 	protected List<Bomb> _bombs = new ArrayList<>();
@@ -105,7 +106,11 @@ public class Board implements IRender {
 		resetProperties();
 		loadLevel(1);
 	}
-        
+        // restast cửa chới
+        public void restartLevel(){
+            loadLevel(_levelLoader.getLevel());
+        }
+                
         
 	public void loadLevel(int level) {
 		
@@ -436,7 +441,7 @@ public class Board implements IRender {
         @SuppressWarnings("static-access")
 	private void resetProperties() {
 		_points = Game.POINTS;
-		//_lives = Game.LIVES;
+		_live = Game.LIVES;
 		Bomber._powerups.clear();
 		
 		_game.bomberSpeed = 1.0;
@@ -444,11 +449,26 @@ public class Board implements IRender {
 		_game.bombRate = 1;
 		
 	}
+
+    public int getLives() {
+        return _live;
+    }
+    
+        // thay đổi mạng
+    public void addLives(int i) {
+       this._live += i;
+        // throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
        
-       
+    public int getHighScores(){
+    return _highScore;
+    }
         
-        
-        
+    
+    // chú ý, vì do chỉ có 1 player nên  số lượng enemy = số luownng character -1
+    public int getNumberOfEnenmys(){
+        return _characters.size() -1;
+    }
         
         
 }

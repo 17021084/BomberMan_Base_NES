@@ -150,6 +150,8 @@ public class Bomber extends Character {
     public void kill() {
         if (!_alive) return;
         _alive = false;
+        // giảm đi một mạng
+        _board.addLives(-1);
         Sound.playBomberDie();
     }
 
@@ -157,7 +159,20 @@ public class Bomber extends Character {
     protected void afterKill() {
         if (_timeAfter > 0) --_timeAfter;
         else {
-            _board.endGame();
+            if(_bombs.size() == 0) {
+				
+				if(_board.getLives() == 0) //  hết mạng thì thôi nghỉ
+					_board.endGame();
+                                else{
+					_board.restartLevel();
+                                      //  this._powerups.clear();
+                                      Game.resestAllPower();
+                                        // chết rồi thì reset lại các tính năng
+                                        
+                                        
+                                }
+			}
+            
         }
     }
 
@@ -169,20 +184,7 @@ public class Bomber extends Character {
         if(_input.right) xa++;
         if(_input.up) ya--;
 	if(_input.down) ya++;
-//        // nuts pause
-//        if(_input.plause){
-//            this._board.gamePause();
-//            System.out.println("pause game");
-//        }
-//        // resume  game
-//        if(_input.resume){
-//            this._board.gameResume();
-//            System.out.println("Resume vame");
-//            
-//        }
-            
-        
-        
+                
 	// kiểm tra xem đã ấn nút để di chuyển chưa? rồi  gọi move() để thực hiện di chuyển 	
 	if(xa != 0 || ya != 0)  {
                 // di chuyển phụ thộc tốc độ
