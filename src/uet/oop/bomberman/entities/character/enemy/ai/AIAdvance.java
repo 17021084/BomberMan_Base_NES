@@ -47,7 +47,7 @@ public class AIAdvance extends AI {
                      if (  FileLevelLoader._map[i][j] =='#'  ){
                          matrix[i][j]=0;  
                      }
-                     else if ( FileLevelLoader._map[i][j] =='*' || FileLevelLoader._map[i][j] == 'x' || FileLevelLoader._map[i][j] == 'b' || FileLevelLoader._map[i][j] == 'f' || FileLevelLoader._map[i][j] == 's' ){
+                     else if ( FileLevelLoader._map[i][j] =='*' || FileLevelLoader._map[i][j] == 'x' || FileLevelLoader._map[i][j] == 'b' || FileLevelLoader._map[i][j] == 'f' || FileLevelLoader._map[i][j] == 's'||FileLevelLoader._map[i][j] == 'r' ){
                          matrix[i][j]=nameOfVertext*(-1);
                          nameOfVertext++;
                      }else {

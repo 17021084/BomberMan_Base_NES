@@ -76,10 +76,10 @@ public abstract class Enemy extends Character {
 	
 	@Override
 	public void calculateMove() {
-		// TODO: Tính toán hướng đi và di chuyển Enemy theo _ai và cập nhật giá trị cho _direction
-		// TODO: sử dụng canMove() để kiểm tra xem có thể di chuyển tới điểm đã tính toán hay không
-		// TODO: sử dụng move() để di chuyển
-		// TODO: nhớ cập nhật lại giá trị cờ _moving khi thay đổi trạng thái di chuyển
+		//  Tính toán hướng đi và di chuyển Enemy theo _ai và cập nhật giá trị cho _direction
+		//  sử dụng canMove() để kiểm tra xem có thể di chuyển tới điểm đã tính toán hay không
+		//  sử dụng move() để di chuyển
+		//  nhớ cập nhật lại giá trị cờ _moving khi thay đổi trạng thái di chuyển
             
                 int xa = 0, ya = 0;
             
@@ -96,8 +96,6 @@ public abstract class Enemy extends Character {
             
             */
 
-            
-            
             
             if(_direction == 0) ya--; // 
             if(_direction == 2) ya++;
@@ -123,7 +121,7 @@ public abstract class Enemy extends Character {
 	
 	@Override
 	public boolean canMove(double x, double y) {
-		// TODO: kiểm tra có đối tượng tại vị trí chuẩn bị di chuyển đến và có thể di chuyển tới đó hay không
+		// kiểm tra có đối tượng tại vị trí chuẩn bị di chuyển đến và có thể di chuyển tới đó hay không
                 double xr = _x, yr = _y - 16; //subtract y to get more accurate results
 		
 		//the thing is, subract 15 to 16 (sprite size), so if we add 1 tile we get the next pixel tile with this

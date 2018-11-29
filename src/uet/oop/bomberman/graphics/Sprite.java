@@ -177,6 +177,10 @@ public class Sprite {
 	public static Sprite powerup_bombpass = new Sprite(16, 5, 10, SpriteSheet.tiles, 16, 16);
 	public static Sprite powerup_flamepass = new Sprite(16, 6, 10, SpriteSheet.tiles, 16, 16);
 	
+        
+        
+        
+        
 	public Sprite(int size, int x, int y, SpriteSheet sheet, int rw, int rh) {
 		SIZE = size;
 		_pixels = new int[SIZE * SIZE];

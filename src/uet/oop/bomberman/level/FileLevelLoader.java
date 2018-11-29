@@ -22,6 +22,7 @@ import uet.oop.bomberman.entities.tile.Wall;
 import uet.oop.bomberman.entities.tile.destroyable.Brick;
 import uet.oop.bomberman.entities.tile.item.BombItem;
 import uet.oop.bomberman.entities.tile.item.FlameItem;
+import uet.oop.bomberman.entities.tile.item.ReverseDirection;
 import uet.oop.bomberman.entities.tile.item.SpeedItem;
 import uet.oop.bomberman.exceptions.LoadLevelException;
 import uet.oop.bomberman.graphics.Screen;
@@ -112,6 +113,15 @@ public class FileLevelLoader extends LevelLoader {
                                         Screen.setOffset(0, 0);
 					break;
                                 //Item
+                                // đảo ngược hướng di chuyển
+                                case 'r':
+                                     _board.addEntity(pos  
+                                             ,  new LayeredEntity(x, y, new Grass(x, y, Sprite.grass)
+                                             , new ReverseDirection(x, y, Sprite.powerup_flamepass), 
+                                                     new Brick(x, y, Sprite.brick)));
+                                 break;
+                                   
+                               
                                 // flame của bom
                                  case 'f':
                                      _board.addEntity(pos  
@@ -122,7 +132,8 @@ public class FileLevelLoader extends LevelLoader {
                                 
                                  // so luong bom
 				case 'b':
-						_board.addEntity(pos, new LayeredEntity(x, y, new Grass(x, y, Sprite.grass), new BombItem(x, y, Sprite.powerup_bombs), new Brick(x, y, Sprite.brick)));
+						_board.addEntity(pos,
+                                                        new LayeredEntity( x , y ,  new Grass(x, y, Sprite.grass) ,  new BombItem( x , y ,  Sprite.powerup_bombs  ), new Brick(x, y, Sprite.brick)));
 						break;
                                  // tốc độ                   
 				case 's':

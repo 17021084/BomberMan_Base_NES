@@ -17,6 +17,7 @@ import uet.oop.bomberman.entities.character.enemy.Enemy;
 import uet.oop.bomberman.entities.tile.destroyable.Brick;
 import uet.oop.bomberman.entities.tile.item.Item;
 import uet.oop.bomberman.level.Coordinates;
+import uet.oop.bomberman.level.FileLevelLoader;
 import uet.oop.bomberman.sound_effective.Sound;
 
 public class Bomber extends Character {
@@ -97,7 +98,7 @@ public class Bomber extends Character {
         // kiểm tra  nút đăt bom ,
         // số quả đặt bomrate >0
         // thời gian giữa 2 lần đăt bom lien tiếp    
-        if( _timeBetweenPutBombs < 0 && Game.getBombRate() > 0 &&  _input.space == true ) { 
+        if( _timeBetweenPutBombs < 0 && Game.getBombRate() > 0 &&  _input.space == true   ) { 
            
             // toa độ trung tâm của nhân vật ( trung tâm của) trong tâm 
             int xg = Coordinates.pixelToTile(_x + _sprite.getSize() / 2);
@@ -165,7 +166,7 @@ public class Bomber extends Character {
 					_board.endGame();
                                 else{
 					_board.restartLevel();
-                                      //  this._powerups.clear();
+                                        this._powerups.clear();
                                       Game.resestAllPower();
                                         // chết rồi thì reset lại các tính năng
                                         
@@ -180,11 +181,22 @@ public class Bomber extends Character {
     protected void calculateMove() {
         int xa = 0, ya = 0;
          // xử lý nhận tín hiệu điều khiển hướng đi từ _input 	
-	if(_input.left) xa--;	
+	//xửa lý đi ngược
+        if (Game.REVERSE==true ){
+        if(_input.left) xa++;	
+        if(_input.right) xa--;
+        if(_input.up) ya++;
+	if(_input.down) ya--;
+        
+        }
+        else {
+        if(_input.left) xa--;	
         if(_input.right) xa++;
         if(_input.up) ya--;
 	if(_input.down) ya++;
-                
+        }        
+        
+        
 	// kiểm tra xem đã ấn nút để di chuyển chưa? rồi  gọi move() để thực hiện di chuyển 	
 	if(xa != 0 || ya != 0)  {
                 // di chuyển phụ thộc tốc độ
@@ -219,7 +231,8 @@ public class Bomber extends Character {
             //chia cho toan độ 1 vi
             double xt = ((_x + x ) + c % 2 * 11 ) / Game.TILES_SIZE;
             double yt = ((_y + y ) + c / 2 * 12 - 15 ) / Game.TILES_SIZE; 
-           /* từ tọa độ của boober _x, _y trong R^2 thì ta chuyển nó về tọa độ của ô 
+           
+            /* từ tọa độ của boober _x, _y trong R^2 thì ta chuyển nó về tọa độ của ô 
             dọc 13 ô , ngang 31/ 15 ô
             c0 c1 //  trên 
             c2 c3 //  dưới
@@ -250,11 +263,21 @@ public class Bomber extends Character {
               thông số đê choosepire chọn
         */
         
-        if(xa > 0) _direction = 1;
-        if(xa < 0) _direction = 3;
-	if(ya > 0) _direction = 2;
-	if(ya < 0) _direction = 0;
-		
+        // phần đảo ngược
+        if(Game.REVERSE==true){
+           if(xa > 0) _direction = 3;
+            if(xa < 0) _direction = 1;
+            if(ya > 0) _direction = 0;
+            if(ya < 0) _direction = 2; 
+            
+            
+        }
+        else{
+            if(xa > 0) _direction = 1;
+             if(xa < 0) _direction = 3;
+            if(ya > 0) _direction = 2;
+            if(ya < 0) _direction = 0;
+        }
         // kiểm tra xem liệu nước tiếp theo  có đi được không ? 
 	if(canMove(0, ya)) {           
             _y += ya;

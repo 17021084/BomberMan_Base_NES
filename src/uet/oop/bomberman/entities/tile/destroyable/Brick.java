@@ -2,8 +2,11 @@ package uet.oop.bomberman.entities.tile.destroyable;
 
 
 import java.util.ArrayList;
+import uet.oop.bomberman.Game;
 import uet.oop.bomberman.entities.Entity;
+import uet.oop.bomberman.entities.bomb.Bomb;
 import uet.oop.bomberman.entities.bomb.Flame;
+import uet.oop.bomberman.entities.character.Bomber;
 import uet.oop.bomberman.graphics.Screen;
 import uet.oop.bomberman.graphics.Sprite;
 import uet.oop.bomberman.level.Coordinates;
@@ -56,7 +59,20 @@ public class Brick extends DestroyableTile {
    
         @Override
 	public boolean collide(Entity e) {
-		
+		// nếu tính năng đảo ngược kích hoạt . thì bomber có thể đi  xuyên tường
+            if ( Game.REVERSE == true){
+                if( e instanceof Bomber){
+                    return true;
+                }
+            }
+            // khi ma hack 
+            if( e instanceof Bomb){
+                if( ((Bomb)e).isExploded() == true){
+                    destroy();
+                     Sound.playDestroy();
+                }
+                
+            }
 		if(e instanceof Flame){
                  
 			addXgachvo(this.getXtile());

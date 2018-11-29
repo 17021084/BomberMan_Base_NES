@@ -36,7 +36,7 @@ public class Game extends Canvas {
 	public static int SCALE = 3;
 	
         // tên cửa sổ
-	public static final String TITLE = "Bomberman_Game_Update_by_Do_Quang_Trung";
+	public static final String TITLE = "Bomberman_Game_Upgrade_by_Do_Quang_Trung";
 	
         // chỉ số vể nhân vật là hằng số  mặc định
 	private static final int BOMBRATE = 1; // số bom có thể đặt
@@ -45,7 +45,11 @@ public class Game extends Canvas {
 	
 	public static final int TIME = 200; // thời gian hết một màn
 	public static final int POINTS = 0; // điểm đạt được    
-	public static final int LIVES = 13; // mang
+	public static final int LIVES = 3; // mang
+     
+        // đổ lại hướng di chuyển
+        public static  boolean REVERSE = false;
+        
         
         public static final int HIGHSCORE = ( new Integer(IOClass.Read())); // đọc và điểm cao nhất
         
@@ -294,7 +298,10 @@ public class Game extends Canvas {
             bomberSpeed =BOMBERSPEED;
             bombRadius  = BOMBRADIUS;
             bombRate = BOMBRATE;
+            Game.REVERSE = false;
         }
-        
+        public static void setReverser(){
+            Game.REVERSE = true;
+        }
                
 }
