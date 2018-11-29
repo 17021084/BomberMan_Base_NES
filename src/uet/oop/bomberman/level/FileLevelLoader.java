@@ -15,6 +15,7 @@ import uet.oop.bomberman.entities.character.Bomber;
 import uet.oop.bomberman.entities.character.enemy.Balloon;
 import uet.oop.bomberman.entities.character.enemy.Doll;
 import uet.oop.bomberman.entities.character.enemy.Kondoria;
+import uet.oop.bomberman.entities.character.enemy.Minvo;
 import uet.oop.bomberman.entities.character.enemy.Oneal;
 import uet.oop.bomberman.entities.tile.Grass;
 import uet.oop.bomberman.entities.tile.Portal;
@@ -22,7 +23,8 @@ import uet.oop.bomberman.entities.tile.Wall;
 import uet.oop.bomberman.entities.tile.destroyable.Brick;
 import uet.oop.bomberman.entities.tile.item.BombItem;
 import uet.oop.bomberman.entities.tile.item.FlameItem;
-import uet.oop.bomberman.entities.tile.item.ReverseDirection;
+import uet.oop.bomberman.entities.tile.item.LiveItem;
+import uet.oop.bomberman.entities.tile.item.ReverseDirectionItem;
 import uet.oop.bomberman.entities.tile.item.SpeedItem;
 import uet.oop.bomberman.exceptions.LoadLevelException;
 import uet.oop.bomberman.graphics.Screen;
@@ -117,7 +119,7 @@ public class FileLevelLoader extends LevelLoader {
                                 case 'r':
                                      _board.addEntity(pos  
                                              ,  new LayeredEntity(x, y, new Grass(x, y, Sprite.grass)
-                                             , new ReverseDirection(x, y, Sprite.powerup_flamepass), 
+                                             , new ReverseDirectionItem(x, y, Sprite.powerup_flamepass), 
                                                      new Brick(x, y, Sprite.brick)));
                                  break;
                                    
@@ -140,6 +142,12 @@ public class FileLevelLoader extends LevelLoader {
 						_board.addEntity(pos, new LayeredEntity(x, y, new Grass(x, y, Sprite.grass), new SpeedItem(x, y, Sprite.powerup_speed), new Brick(x, y, Sprite.brick)));
 						break;
                                  
+                                 // live
+                                case 'l':
+						_board.addEntity(pos, new LayeredEntity(x, y, new Grass(x, y, Sprite.grass), new LiveItem(x, y, Sprite.powerup_detonator), new Brick(x, y, Sprite.brick)));
+						break;
+                                                
+                                                
 
                             // cổng portal
                                  case 'x':
@@ -162,12 +170,12 @@ public class FileLevelLoader extends LevelLoader {
                                   _board.addEntity(pos, new Grass(x, y, Sprite.grass));
                                   _board.addCharacter(new Doll(Coordinates.tileToPixel(x), Coordinates.tileToPixel(y) + Game.TILES_SIZE, _board));
                                   break;
+                                    //Mivo
+				case '4':
+                                  _board.addEntity(pos, new Grass(x, y, Sprite.grass));
+                                  _board.addCharacter(new Minvo(Coordinates.tileToPixel(x), Coordinates.tileToPixel(y) + Game.TILES_SIZE, _board));
+                                  break;
 
-//				case '4':
-//                                  _board.addEntity(pos, new Grass(x, y, Sprite.grass));
-//                                  _board.addCharacter(new Minvo(Coordinates.tileToPixel(x), Coordinates.tileToPixel(y) + Game.TILES_SIZE, _board));
-//                                  break;
-//
                                   // kondoria
 				case '5':
                                   _board.addEntity(pos, new Grass(x, y, Sprite.grass));

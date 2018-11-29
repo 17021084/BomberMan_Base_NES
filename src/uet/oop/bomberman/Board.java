@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Scanner;
+import uet.oop.bomberman.entities.character.enemy.Minvo;
 import uet.oop.bomberman.entities.tile.Grass;
 import uet.oop.bomberman.entities.tile.destroyable.Brick;
 import uet.oop.bomberman.entities.tile.destroyable.DestroyableTile;
@@ -34,7 +35,7 @@ public class Board implements IRender {
 	protected Game _game;
 	protected Keyboard _input;
 	protected Screen _screen;
-	protected int _live = Game.LIVES; // maang
+	protected int _live = Game.lives; // maang
         protected int _highScore= Game.HIGHSCORE;
 	public Entity[] _entities;
 	public List<Character> _characters = new ArrayList<>();
@@ -441,7 +442,7 @@ public class Board implements IRender {
         @SuppressWarnings("static-access")
 	private void resetProperties() {
 		_points = Game.POINTS;
-		_live = Game.LIVES;
+		_live = Game.lives;
 		Bomber._powerups.clear();
 		
 		_game.bomberSpeed = 1.0;
@@ -470,5 +471,24 @@ public class Board implements IRender {
         return _characters.size() -1;
     }
         
+    
+    /**
+     * 
+     * AI cho Bomber;
+     * 
+     * @return danh sách enemy minvo
+     */
+    
+    public ArrayList<Minvo> getEnemyMinvo(){
+        ArrayList<Minvo> mv = new ArrayList();
         
+        for ( int i = 0 ; i < this._characters.size(); i++){
+            if ( this._characters.get(i) instanceof Minvo){
+                mv.add(( Minvo) this._characters.get(i));
+                
+            }
+        }
+        return mv;
+    }   
+   
 }

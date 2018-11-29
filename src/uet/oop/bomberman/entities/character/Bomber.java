@@ -14,6 +14,7 @@ import java.util.List;
 import uet.oop.bomberman.entities.bomb.Flame;
 import uet.oop.bomberman.entities.bomb.FlameSegment;
 import uet.oop.bomberman.entities.character.enemy.Enemy;
+import uet.oop.bomberman.entities.character.enemy.ai.AIBomberMan;
 import uet.oop.bomberman.entities.tile.destroyable.Brick;
 import uet.oop.bomberman.entities.tile.item.Item;
 import uet.oop.bomberman.level.Coordinates;
@@ -26,6 +27,7 @@ public class Bomber extends Character {
     protected Keyboard _input;
     //list lưu khả ngang
     public static List<Item> _powerups = new ArrayList<Item>();
+    public AIBomberMan  _AIBomber;
     
     
     public void addPowerup(Item item) {
@@ -53,6 +55,8 @@ public class Bomber extends Character {
         _bombs = _board.getBombs();
         _input = _board.getInput();
         _sprite = Sprite.player_right;
+        _AIBomber = new AIBomberMan(this,this._board);
+        
     }
 
     @Override
@@ -177,11 +181,25 @@ public class Bomber extends Character {
         }
     }
 
+  /**
+   * 
+   * di chuyển của bomber
+   */
     @Override
     protected void calculateMove() {
         int xa = 0, ya = 0;
          // xử lý nhận tín hiệu điều khiển hướng đi từ _input 	
 	//xửa lý đi ngược
+//        int direct = _AIBomber.calculateDirection();
+//        if( direct == 3) xa--;	
+//        if( direct == 1) xa++;
+//        if(  direct == 0 ) ya--;
+//	if( direct == 2) ya++;
+//        
+        
+        
+        
+        
         if (Game.REVERSE==true ){
         if(_input.left) xa++;	
         if(_input.right) xa--;

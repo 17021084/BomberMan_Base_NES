@@ -45,7 +45,7 @@ public class Game extends Canvas {
 	
 	public static final int TIME = 200; // thời gian hết một màn
 	public static final int POINTS = 0; // điểm đạt được    
-	public static final int LIVES = 3; // mang
+	public static  int LIVES = 3; // mang
      
         // đổ lại hướng di chuyển
         public static  boolean REVERSE = false;
@@ -65,7 +65,7 @@ public class Game extends Canvas {
 	protected static int bombRate = BOMBRATE;   // số quả bom đc dặt
 	protected static int bombRadius = BOMBRADIUS;
 	protected static double bomberSpeed = BOMBERSPEED;
-	
+	protected static int lives=LIVES;
 	
 	protected int _screenDelay = SCREENDELAY;
 	//-------------------------------------------
@@ -261,7 +261,10 @@ public class Game extends Canvas {
 	public static void addBombRate(int i) {
 		bombRate += i;
 	}
-
+        // theem mang
+        public static void addLives(int i){
+            lives += i;
+        }
         
         //---------------------------------------------------------------------
         

@@ -17,7 +17,7 @@ public class AIAdvance extends AI {
         
         
         
-		public ArrayList<Integer> path = new ArrayList();// đường đi ngắn nhất
+	public ArrayList<Integer> path = new ArrayList();// đường đi ngắn nhất
         public int heigh = Game.HEIGHTTile; // cột dọc
         public int width  = Game.WIDTHTile;	// cột ngang
 
