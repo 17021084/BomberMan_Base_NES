@@ -1,6 +1,6 @@
 # Booberman Game
 <hr>
-### Demo
+
 [Demo](https://www.youtube.com/watch?v=zxvm37lwk5s )
 
 ### Mission
