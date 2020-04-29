@@ -1,12 +1,12 @@
 # Booberman Game
 <hr>
-###Demo
-[Click here](https://www.youtube.com/watch?v=zxvm37lwk5s 'youtube')
+### Demo
+[Click here](https://www.youtube.com/watch?v=zxvm37lwk5s "youtube")
 
 ### Mission
 I will make another version of this game.
 ### Advance Function.
-i have made a BOTwhich is alway follow Player . the BOT find shortest and safest Path from BOT to Player.
+i have made a BOT which is alway follow Player . the BOT find shortest and safest Path from BOT to Player.
 i based on BFS algorithm to make class  [AIAdvance](https://github.com/17021084/BomberMan_Base_NES/blob/master/src/uet/oop/bomberman/entities/character/enemy/ai/AIAdvance.java)
 
 
