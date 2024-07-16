@@ -1,7 +1,8 @@
 # Booberman Game
 <hr>
+[Click here to watch Demo 1](https://youtu.be/I4R3DXX-DYI?si=UkeCq7HuHiJOA6wc)
+[Click here to watch Demo 2](https://www.youtube.com/watch?v=zxvm37lwk5s )
 
-[Click here to watch Demo](https://www.youtube.com/watch?v=zxvm37lwk5s )
 
 ### Mission
 I will make another version of this game.
